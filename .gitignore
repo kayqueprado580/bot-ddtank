@@ -3,4 +3,16 @@ build/
 build*/
 *build*
 
+gvg/build/
+gvg/build*/
+gvg/*build*
+
+pvp/build/
+pvp/build*/
+pvp/*build*
+
+anthill/build/
+anthill/build*/
+anthill/*build*
+
 # Rest of your .gitignore rules...
