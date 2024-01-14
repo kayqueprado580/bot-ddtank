@@ -7,7 +7,7 @@ import logging
 import re
 import keyboard
 
-logging.basicConfig(filename="../log/error_log.txt", level=logging.ERROR)
+logging.basicConfig(filename="log/error_log.txt", level=logging.ERROR)
 
 ANGLES_IMAGES_PATH = [
     {"key": "-5", "path": "img/ang/ang_-5.png"},
@@ -58,7 +58,7 @@ def find_image(image_path, confidence=0.9):
     except Exception as e:
         error_message = f"An error occurred: {e}"
         logging.error(error_message)
-        with open("../log/log.txt", "a") as log_file:
+        with open("log/log.txt", "a") as log_file:
             log_file.write(error_message + "\n")
 
     return result
