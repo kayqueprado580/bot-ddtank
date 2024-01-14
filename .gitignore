@@ -1,0 +1,6 @@
+# Ignore all directories and files named "build"
+build/
+build*/
+*build*
+
+# Rest of your .gitignore rules...
