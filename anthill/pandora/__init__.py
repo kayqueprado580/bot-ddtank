@@ -40,6 +40,10 @@ ANGLES_IMAGES_PATH = [
     {"key": "0", "path": "img/ang/ang_0.png"},
 ]
 
+ADJUSTED_ANGLE = False
+COUNT_GET_TRY_ANGLE = 0
+KEY = 0
+
 
 def find_image(image_path, confidence=0.9):
     result = {"found": False, "position_x": 0, "position_y": 0}
@@ -81,9 +85,6 @@ def attack_boss():
 def set_adjusted_angle(flag):
     global ADJUSTED_ANGLE
     ADJUSTED_ANGLE = flag
-
-
-ADJUSTED_ANGLE = False
 
 
 def adjust_angle(max):
@@ -132,6 +133,7 @@ def check_angles(key):
         force = 1.6
     else:
         force = 2.1
+
     return force
 
 
@@ -141,47 +143,55 @@ def bar_on(duration):
     keyboard.release("space")
 
 
-COUNT_GET_TRY_ANGLE = 0
-
-
 def set_count_try_angle():
     global COUNT_GET_TRY_ANGLE
     COUNT_GET_TRY_ANGLE = 0
 
 
 def turn_on_boss():
-    global COUNT_GET_TRY_ANGLE, ADJUSTED_ANGLE
+    global COUNT_GET_TRY_ANGLE, ADJUSTED_ANGLE, KEY
     time.sleep(1)
 
     print(f"ADJUSTED_ANGLE: {ADJUSTED_ANGLE}")
     num_positions = len(ANGLES_IMAGES_PATH) * 2
     count = 0
-    for angle in ANGLES_IMAGES_PATH:
-        key = angle["key"]
-        result = find_image(angle["path"])
 
-        if result["found"]:
-            print(f"angle: '{key}'")
-            time.sleep(0.2)
-            attack_boss()
-            time.sleep(0.3)
-            force = check_angles(key)
-            time.sleep(0.3)
-            bar_on(force)
-            time.sleep(2.5)
-            break
-        else:
-            print(
-                f"attempt counter to get the angle: {COUNT_GET_TRY_ANGLE} of max try: {num_positions}"
-            )
-            if COUNT_GET_TRY_ANGLE >= int(num_positions):
-                print(f"not found angle")
+    if not ADJUSTED_ANGLE:
+        for angle in ANGLES_IMAGES_PATH:
+            key = angle["key"]
+            KEY = key
+            result = find_image(angle["path"])
+
+            if result["found"]:
+                print(f"angle: '{key}'")
+                time.sleep(0.2)
                 attack_boss()
-                bar_on(2.5)
-                time.sleep(5)
-                COUNT_GET_TRY_ANGLE = 0
+                time.sleep(0.3)
+                force = check_angles(key)
+                time.sleep(0.3)
+                bar_on(force)
+                time.sleep(2.5)
                 break
             else:
-                COUNT_GET_TRY_ANGLE += 1
+                print(
+                    f"attempt counter to get the angle: {COUNT_GET_TRY_ANGLE} of max try: {num_positions}"
+                )
+                if COUNT_GET_TRY_ANGLE >= int(num_positions):
+                    print(f"not found angle")
+                    attack_boss()
+                    bar_on(2.5)
+                    time.sleep(5)
+                    COUNT_GET_TRY_ANGLE = 0
+                    break
+                else:
+                    COUNT_GET_TRY_ANGLE += 1
+    else:
+        time.sleep(0.2)
+        attack_boss()
+        time.sleep(0.3)
+        force = check_angles(KEY)
+        time.sleep(0.3)
+        bar_on(force)
+        time.sleep(2.5)
 
     time.sleep(1)
