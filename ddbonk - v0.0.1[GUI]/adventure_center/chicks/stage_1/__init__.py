@@ -10,8 +10,8 @@ FLY_USED = False
 GET_SIDE = False
 SIDE = 0  # SIDE 0 = RIGHT | SIDE 1 = LEFT
 COUNT_TURN = 0
-MAX_TURN = 10
-MAX_TURN_BASE = 10
+MAX_TURN = 20
+MAX_TURN_BASE = 20
 
 IMAGES_LEFT = [
     {"key": "left", "path": "img/stage_1/side_left.png"},
@@ -65,7 +65,7 @@ def fly():
     global FLY_USED
     if not FLY_USED:
         print("use fly...")
-        result = find_image("../img/fly.png")
+        result = find_image("img/fly.png")
         if result["found"]:
             x = result["position_x"]
             y = result["position_y"]
@@ -107,12 +107,12 @@ def walking():
             SIDE = 1
 
     if SIDE == 1:
-        print("left")
+        print("walking left")
         keyboard.press("a")
         time.sleep(1)
         keyboard.release("a")
     else:
-        print("right")
+        print("walking right")
         keyboard.press("d")
         time.sleep(1)
         keyboard.release("d")
@@ -142,12 +142,15 @@ def look_right():
 
 def turn_on_attack():
     global GET_SIDE, COUNT_TURN, MAX_TURN
-    attack_done = False
     count = 0
 
-    while count < 5:
-        look_left()
-        look_right()
+    while count < 3:
+        if not GET_SIDE:
+            look_left()
+
+        if not GET_SIDE:
+            look_right()
+
         if GET_SIDE:
             if COUNT_TURN < MAX_TURN:
                 if COUNT_TURN < 2:
@@ -159,10 +162,7 @@ def turn_on_attack():
                 COUNT_TURN = 0
                 walking()
                 fly()
-
-                attack_done = True
                 break
-        if attack_done:
-            break
+
         count += 1
-        time.sleep(0.5)
+        time.sleep(0.2)

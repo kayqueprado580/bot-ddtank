@@ -5,10 +5,8 @@ import logging
 import keyboard
 import sys
 
-from lib import angles
-from stage_1 import (
-    turn_on_attack,
-)
+from lib import turnon
+from stage_1 import turn_on_attack, set_default_parameters
 
 logging.basicConfig(filename="log/error_log.txt", level=logging.ERROR)
 
@@ -69,8 +67,11 @@ def setting_instance():
     if check["found"]:
         print(f"step: checked instance")
         STAGE_1 = True
-        AVAILABLE = False
         ENABLE_START = True
+        AVAILABLE = False
+        STAGE_2 = False
+        STAGE_3 = False
+        STAGE_4 = False
 
     for img_central in IMAGES_CENTRAL:
         central = find_image(img_central["path"])
@@ -148,22 +149,19 @@ def setting_instance():
                 step_click(img_start["key"], start["position_x"], start["position_y"])
                 break
 
-
 def manager_turn():
-    global STAGE_1
+    global STAGE_1, STAGE_2
 
     x_aux = turn_on["position_x"] - 40
     y_aux = turn_on["position_y"] - 80
     step_click(key, x_aux, y_aux)
     time.sleep(0.05)
+    
+    if STAGE_1:
+        turn_on_attack()
+    elif STAGE_2:
+        print("todo...")
 
-    turn_on_attack()
-
-    # if STAGE_1:
-    # elif STAGE_2:
-    # print("fazer ainda")
-    # else:
-    # print("fazer ainda2")
 
 
 IMAGES_CENTRAL = [{"key": "room", "path": "img/central.png"}]
@@ -180,9 +178,10 @@ IMAGES_LEVEL = [
     {"key": "normal", "path": "img/normal.png"},
 ]
 
-STAGE_1 = False
+STAGE_1 = True
 STAGE_2 = False
 STAGE_3 = False
+STAGE_4 = False
 AVAILABLE = True
 TURN_ON = False
 CHICKS_SELECTED = False
@@ -191,9 +190,25 @@ LEVEL = 1
 
 while True:
     if not TURN_ON:
+        end_game = find_image("img/end_game.png")
+        if end_game["found"]:
+            print(f"step: end game")
+            set_default_parameters()
+            time.sleep(5)
+    if not TURN_ON:      
+        check_stage_2 = find_image("img/stage_2/stage_2.png")
+        if check_stage_2["found"]:
+            print(f"step: room_stage_2")
+            ENABLE_START = True
+            STAGE_2 = True
+            STAGE_1 = False
+            STAGE_3 = False
+            STAGE_4 = False
+
+    if not TURN_ON:
         setting_instance()
 
-    for img_pass in angles.IMAGES_PASS:
+    for img_pass in turnon.IMAGES_PASS:
         key = img_pass["key"]
         turn_on = find_image(img_pass["path"])
         if turn_on["found"]:
