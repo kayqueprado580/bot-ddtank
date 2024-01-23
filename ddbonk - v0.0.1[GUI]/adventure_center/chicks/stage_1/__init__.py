@@ -132,7 +132,7 @@ def look_right():
 
 
 def chicks_1_turn_on():
-    global GET_SIDE, COUNT_TURN, MAX_TURN
+    global GET_SIDE, COUNT_TURN, MAX_TURN, FLY_USED
     count = 0
 
     if not GET_SIDE:
@@ -143,7 +143,7 @@ def chicks_1_turn_on():
 
     if GET_SIDE:
         if COUNT_TURN < MAX_TURN:
-            if COUNT_TURN < 2:
+            if COUNT_TURN < 2 and not FLY_USED:
                 walking()
             attack()
             time.sleep(3)

@@ -63,7 +63,7 @@ IMAGES_ANGLES = [
 ]
 
 
-def get_angle(image_path, confidence=0.9):
+def get_angle(image_path, confidence=0.8):
     result = {"found": False, "position_x": 0, "position_y": 0}
     try:
         template = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
