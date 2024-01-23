@@ -9,6 +9,7 @@ FORCE = 3
 FAT_CHICKEN = 1
 BEFORE_FAT_CHICKEN = FAT_CHICKEN
 
+
 def set_default_parameters_fat_chicken_2():
     global COUNT_TURN, ADJUSTED_ANGLE, FORCE, FAT_CHICKEN, BEFORE_FAT_CHICKEN
     FORCE = 3
@@ -34,7 +35,7 @@ def fat_chicken_2_turn_on():
         FAT_CHICKEN = 3
         if BEFORE_FAT_CHICKEN == 2:
             set_default_variables_attack(3)
-            
+
     attack_fat_chicken(FAT_CHICKEN)
     if COUNT_TURN >= 3:
         COUNT_TURN = 0
@@ -46,13 +47,16 @@ def set_default_variables_attack(fat_chicken):
     global ADJUSTED_ANGLE, BEFORE_FAT_CHICKEN
     ADJUSTED_ANGLE = False
     BEFORE_FAT_CHICKEN = fat_chicken
-    
+
+
 def attack_fat_chicken(fat_chicken):
     global ADJUSTED_ANGLE, FORCE
     time.sleep(1)
     print("step: fat chicken attack...")
     if not ADJUSTED_ANGLE:
+        print("step: take angle")
         for angle in turnon.IMAGES_ANGLES:
+            print(f"angle: {angle}")
             key = angle["key"]
             result = turnon.get_angle(angle["path"])
             if result["found"]:
@@ -60,12 +64,13 @@ def attack_fat_chicken(fat_chicken):
                 change_angle(key, fat_chicken)
                 time.sleep(0.1)
                 FORCE = get_force(key, fat_chicken)
-                time.sleep(0.1)                
+                time.sleep(0.1)
                 ADJUSTED_ANGLE = True
                 break
     turnon.use_skills_attack()
     turnon.attack(FORCE)
     time.sleep(10)
+
 
 def change_angle(angle, fat_chicken):
     if angle == "-5":
@@ -187,7 +192,7 @@ def get_force(angle, fat_chicken):
         elif fat_chicken == 3:
             force = 2.4
     else:
-      	if fat_chicken == 1:
+        if fat_chicken == 1:
             force = 2.1
         elif fat_chicken == 2:
             force = 3

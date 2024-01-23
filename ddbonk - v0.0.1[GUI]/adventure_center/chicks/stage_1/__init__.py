@@ -135,25 +135,23 @@ def chicks_1_turn_on():
     global GET_SIDE, COUNT_TURN, MAX_TURN
     count = 0
 
-    while count < 3:
-        if not GET_SIDE:
-            look_left()
+    if not GET_SIDE:
+        look_left()
 
-        if not GET_SIDE:
-            look_right()
+    if not GET_SIDE:
+        look_right()
 
-        if GET_SIDE:
-            if COUNT_TURN < MAX_TURN:
-                if COUNT_TURN < 2:
-                    walking()
-                attack()
-                time.sleep(3)
-                COUNT_TURN += 1
-            else:
-                COUNT_TURN = 0
+    if GET_SIDE:
+        if COUNT_TURN < MAX_TURN:
+            if COUNT_TURN < 2:
                 walking()
-                fly()
-                break
+            attack()
+            time.sleep(3)
+            COUNT_TURN += 1
+        else:
+            COUNT_TURN = 0
+            walking()
+            fly()
 
-        count += 1
-        time.sleep(0.2)
+    count += 1
+    time.sleep(0.2)

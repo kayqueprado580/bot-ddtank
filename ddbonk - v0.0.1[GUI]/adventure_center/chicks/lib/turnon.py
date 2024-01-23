@@ -14,6 +14,8 @@ IMAGES_PASS = [
 
 
 IMAGES_ANGLES = [
+    {"key": "15", "path": "img/ang/15.png"},
+    {"key": "23", "path": "img/ang/23.png"},
     {"key": "-5", "path": "img/ang/-5.png"},
     {"key": "6", "path": "img/ang/6.png"},
     {"key": "10", "path": "img/ang/10.png"},
@@ -57,6 +59,7 @@ IMAGES_ANGLES = [
     {"key": "41", "path": "img/ang/ang_41_1.png"},
     {"key": "46", "path": "img/ang/ang_46.png"},
     {"key": "51", "path": "img/ang/ang_51.png"},
+    {"key": "23", "path": "img/ang/ang_23_2.png"},
 ]
 
 
