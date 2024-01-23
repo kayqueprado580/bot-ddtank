@@ -15,4 +15,36 @@ anthill/build/
 anthill/build*/
 anthill/*build*
 
+log/
+log*/
+*log*
+
+gvg/log/
+gvg/log*/
+gvg/*log*
+
+pvp/log/
+pvp/log*/
+pvp/*log*
+
+anthill/log/
+anthill/log*/
+anthill/*log*
+
+__pycache__/
+__pycache__*/
+*__pycache__*
+
+gvg/__pycache__/
+gvg/__pycache__*/
+gvg/*__pycache__*
+
+pvp/__pycache__/
+pvp/__pycache__*/
+pvp/*__pycache__*
+
+anthill/__pycache__/
+anthill/__pycache__*/
+anthill/*__pycache__*
+
 # Rest of your .gitignore rules...
