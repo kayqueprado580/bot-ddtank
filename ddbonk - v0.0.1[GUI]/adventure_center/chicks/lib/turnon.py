@@ -1,3 +1,7 @@
+import time
+import keyboard
+import cv2
+
 IMAGES_PASS = [
     {"key": "turn_on", "path": "img/pass.png"},
     {"key": "turn_on", "path": "img/pass2.png"},
@@ -52,4 +56,68 @@ IMAGES_ANGLES = [
     {"key": "41", "path": "img/ang/ang_41.png"},
     {"key": "41", "path": "img/ang/ang_41_1.png"},
     {"key": "46", "path": "img/ang/ang_46.png"},
+    {"key": "51", "path": "img/ang/ang_51.png"},
 ]
+
+
+def get_angle(image_path, confidence=0.9):
+    result = {"found": False, "position_x": 0, "position_y": 0}
+    try:
+        template = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
+        position = pyautogui.locateOnScreen(template, confidence=confidence)
+
+        if position is not None:
+            x, y, width, height = position
+            result["found"] = True
+            result["x"] = x
+            result["y"] = y
+            result["width"] = width
+            result["height"] = height
+
+    except Exception as e:
+        pass
+
+    return result
+
+
+def adjust_angle(max):
+    print("adjusting angle...")
+    i = 0
+    while i < max:
+        keyboard.press_and_release("w")
+        time.sleep(0.05)
+        i += 1
+
+
+def use_skills_attack():
+    keyboard.press_and_release("3")
+    keyboard.press_and_release("4")
+    keyboard.press_and_release("4")
+    keyboard.press_and_release("5")
+    keyboard.press_and_release("5")
+    keyboard.press_and_release("6")
+    keyboard.press_and_release("6")
+    keyboard.press_and_release("7")
+    keyboard.press_and_release("7")
+    keyboard.press_and_release("8")
+    keyboard.press_and_release("8")
+
+
+def attack(duration):
+    keyboard.press("space")
+    time.sleep(float(duration))
+    keyboard.release("space")
+
+
+def walking_right():
+    print("walking right")
+    keyboard.press("d")
+    time.sleep(0.5)
+    keyboard.release("d")
+
+
+def walking_left():
+    print("walking left")
+    keyboard.press("a")
+    time.sleep(0.5)
+    keyboard.release("a")

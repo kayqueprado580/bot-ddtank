@@ -1,9 +1,7 @@
 import pyautogui
 import time
 import cv2
-import logging
 import keyboard
-import sys
 
 # SETTINGS TURN
 FLY_USED = False
@@ -28,8 +26,6 @@ IMAGES_RIGHT = [
 
 IMAGE_CHICK = {"key": "chick", "path": "img/stage_1/chicks.png"}
 
-logging.basicConfig(filename="../log/error_log.txt", level=logging.ERROR)
-
 
 def find_image(image_path, confidence=0.7):
     result = {"found": False, "position_x": 0, "position_y": 0}
@@ -44,10 +40,7 @@ def find_image(image_path, confidence=0.7):
             result["position_y"] = y
 
     except Exception as e:
-        error_message = f"An error occurred: {e}"
-        logging.error(error_message)
-        with open("../log/log.txt", "a") as log_file:
-            log_file.write(error_message + "\n")
+        pass
 
     return result
 
@@ -67,8 +60,6 @@ def fly():
         print("use fly...")
         result = find_image("img/fly.png")
         if result["found"]:
-            x = result["position_x"]
-            y = result["position_y"]
             pyautogui.click(result["position_x"], result["position_y"])
             keyboard.press_and_release("f")
             keyboard.press("space")
@@ -94,7 +85,7 @@ def attack():
     else:
         time.sleep(0.5)
     keyboard.release("space")
-    time.sleep(2)
+    time.sleep(5)
 
 
 def walking():
@@ -140,7 +131,7 @@ def look_right():
             break
 
 
-def turn_on_attack():
+def chicks_1_turn_on():
     global GET_SIDE, COUNT_TURN, MAX_TURN
     count = 0
 
