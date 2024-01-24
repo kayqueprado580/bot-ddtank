@@ -2,23 +2,16 @@ import time
 import sys
 import os
 
-import sys
-import os
+lib_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "lib"))
+sys.path.append(lib_path)
 
-# from lib import fn_complement
-
-# Adicione o caminho da pasta "lib" ao sys.path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "lib")))
-
-# Agora você pode importar os módulos diretamente da pasta "lib"
 from fn_complement import *
 from turn_on import *
 from setting_room import *
 from mission import *
 
-END_GAME = "img/end_game.png"
-CARDS = "img/cards.png"
-
+END_GAME = "../img/end_game.png"
+CARDS = "../img/cards.png"
 
 walking_flag = True
 attack_flag = True
@@ -34,7 +27,7 @@ def set_up_my_turn():
     print("Deseja passar ou apenas morrer ?")
     print("Tecle: ")
     print("1 - Passar || 2 - Morrer")
-    input_user = input("Digite um 1, 2")
+    input_user = input("Digite um 1, 2: ")
     try:
         my_turn_option_attack = int(input_user)
         if my_turn_option_attack == 1 or my_turn_option_attack == 2:
@@ -53,33 +46,34 @@ def set_up_my_turn():
 
 def manager_attack(trident=False):
     if trident:
-        turn_on.use_skills_trident()
+        use_skills_trident()
+        time.sleep(2)
     else:
-        turn_on.use_skills_attack()
-    turn_on.attack(0.2)
-    time.sleep(3.5)
+        use_skills_attack()
+    attack(0.2)
+    time.sleep(6)
 
 
 def manager_walking(right=False):
     if right:
-        turn_on.walking_right()
-        turn_on.change_side(0)
+        walking_right()
+        change_side(0)
     else:
-        turn_on.walking_left()
-        turn_on.change_side(1)
+        walking_left()
+        change_side(1)
 
 
 def manager_pass(x, y):
     global count_pass
-    turn_on.pass_turn(x, y)
+    pass_turn(x, y)
     count_pass += 1
     time.sleep(1)
 
 
 def manager_end_game():
     global walking_flag, attack_flag, changed_bool, count_pass, is_end_game
-    end_game = fn_complement.find(END_GAME)
-    cards = fn_complement.find(CARDS)
+    end_game = find(END_GAME)
+    cards = find(CARDS)
     if cards["found"] or end_game["found"]:
         is_end_game = True
         walking_flag = True
@@ -87,30 +81,29 @@ def manager_end_game():
         changed_bool = False
         count_pass = 0
         time.sleep(5)
-        mission_accomplished = mission.found()
+        mission_accomplished = found()
         if mission_accomplished:
-            mission.completed()
+            completed()
             time.sleep(1)
-            mission.collect()
+            collect()
             time.sleep(1.5)
-            mission.close()
+            close()
     else:
         is_end_game = False
 
 
-# set_up_my_turn()
-my_turn_option_attack = 1
+set_up_my_turn()
 while True:
     if not my_turn:
         manager_end_game()
         if not is_end_game:
-            setting_room.set_up()
+            set_up()
 
-    for img_pass in fn_complement.IMAGES_PASS:
-        turn = fn_complement.find(img_pass)
+    for img_pass in IMAGES_PASS:
+        turn = find(img_pass)
         if turn["found"]:
             my_turn = True
-            turn_on.click_for_attack(turn["position_x"], turn["position_y"])
+            click_for_attack(turn["position_x"], turn["position_y"])
             if changed_bool:
                 walking_flag = not walking_flag
                 attack_flag = not attack_flag

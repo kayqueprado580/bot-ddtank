@@ -1,25 +1,25 @@
 import time
 import keyboard
-from lib import fn_complement
+from fn_complement import *
 
 
 IMAGES_PASS = [
-    "img/pass.png",
-    "img/pass1.png",
-    "img/pass2.png",
-    "img/pass3.png",
-    "img/pass4.png",
-    "img/pass5.png",
-    "img/pass6.png",
+    "../img/pass.png",
+    "../img/pass1.png",
+    "../img/pass2.png",
+    "../img/pass3.png",
+    "../img/pass4.png",
+    "../img/pass5.png",
+    "../img/pass6.png",
 ]
 
 
 def click_for_attack(x, y):
-    fn_complement.click("my turn - action: click", (x - 40), (y - 80))
+    click("my turn - action: click", (x - 40), (y - 80))
 
 
 def pass_turn(x, y):
-    fn_complement.click("my turn - action: pass", x, y)
+    click("my turn - action: pass", x, y)
 
 
 def use_skills_trident():
