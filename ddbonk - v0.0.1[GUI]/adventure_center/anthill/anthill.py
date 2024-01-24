@@ -46,7 +46,10 @@ def manager_end_game():
     if cards["found"] or end_game["found"]:
         is_end_game = True
         my_turn = False
-        time.sleep(5)
+        stage = 1
+        time.sleep(10)
+        reset_parameters_default()
+        set_default_parameters_ants()
         mission_accomplished = mission.found()
         if mission_accomplished:
             mission.completed()
@@ -80,10 +83,11 @@ while True:
         if turn["found"]:
             my_turn = True
             turn_on.click_for_attack(turn["position_x"], turn["position_y"])
-            if stage == 1:
-                turn_on_ants_stage_1()
-            elif stage == 2:
+            if stage == 2:
                 turn_on_boss_stage_2()
+            else:
+                turn_on_ants_stage_1()
+
         else:
             my_turn = False
-    time.sleep(0.5)
+    time.sleep(0.2)

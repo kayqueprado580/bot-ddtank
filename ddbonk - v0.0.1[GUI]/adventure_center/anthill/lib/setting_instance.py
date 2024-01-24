@@ -96,7 +96,7 @@ def set_up(level):
 def check_stage_1():
     global CHECK_STAGE_1
     found = False
-    check = fn_complement.find(CHECK_STAGE_1)
+    check = fn_complement.find(CHECK_STAGE_1, use_gray=True)
     if check["found"]:
         found = True
         print(f"step: check stage 1")
@@ -106,7 +106,7 @@ def check_stage_1():
 def check_stage_2():
     global CHECK_STAGE_2
     found = False
-    check = fn_complement.find(CHECK_STAGE_2)
+    check = fn_complement.find(CHECK_STAGE_2, use_gray=True)
     if check["found"]:
         found = True
         print(f"step: check stage 2")

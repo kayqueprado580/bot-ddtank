@@ -2,10 +2,13 @@ import cv2
 import pyautogui
 
 
-def find(image_path, confidence=0.8):
+def find(image_path, confidence=0.8, use_gray=False):
     result = {"found": False, "position_x": 0, "position_y": 0}
     try:
-        template = cv2.imread(image_path)
+        if use_gray:
+            template = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
+        if not use_gray:
+            template = cv2.imread(image_path)
         position = pyautogui.locateOnScreen(template, confidence=confidence)
 
         if position is not None:

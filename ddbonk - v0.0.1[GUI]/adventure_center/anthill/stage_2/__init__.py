@@ -141,7 +141,7 @@ def turn_on_boss_stage_2():
     turn_on.use_skills_attack()
     time.sleep(0.5)
     turn_on.attack(force)
-    time.sleep(3)
+    time.sleep(6)
 
 
 def reset_parameters_default():

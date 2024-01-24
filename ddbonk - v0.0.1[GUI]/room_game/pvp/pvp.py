@@ -1,9 +1,20 @@
 import time
 import sys
-from lib import fn_complement
-from lib import turn_on
-from lib import setting_room
-from lib import mission
+import os
+
+import sys
+import os
+
+# from lib import fn_complement
+
+# Adicione o caminho da pasta "lib" ao sys.path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "lib")))
+
+# Agora você pode importar os módulos diretamente da pasta "lib"
+from fn_complement import *
+from turn_on import *
+from setting_room import *
+from mission import *
 
 END_GAME = "img/end_game.png"
 CARDS = "img/cards.png"
