@@ -82,6 +82,7 @@ while True:
         turn = fn_complement.find(img_pass)
         if turn["found"]:
             my_turn = True
+            print(f"stage: {stage}")
             turn_on.click_for_attack(turn["position_x"], turn["position_y"])
             if stage == 2:
                 turn_on_boss_stage_2()

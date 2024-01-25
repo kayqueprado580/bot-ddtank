@@ -2,7 +2,7 @@ import cv2
 import pyautogui
 
 
-def find(image_path, confidence=0.8, use_gray=False):
+def find(image_path, confidence=0.7, use_gray=False):
     result = {"found": False, "position_x": 0, "position_y": 0}
     try:
         if use_gray:

@@ -37,7 +37,7 @@ def look_ants_left():
     global IMAGES_ANTS_LEFT
     monster_found = False
     for img_left in IMAGES_ANTS_LEFT:
-        ants_left = fn_complement.find(img_left["path"], use_gray=True)
+        ants_left = fn_complement.find(img_left["path"])
         if ants_left["found"]:
             print("monsters on the left")
             monster_found = True
@@ -49,7 +49,7 @@ def look_ants_right():
     global IMAGES_ANTS_RIGHT
     monster_found = False
     for img_right in IMAGES_ANTS_RIGHT:
-        ants = fn_complement.find(img_right["path"], use_gray=True)
+        ants = fn_complement.find(img_right["path"])
         if ants["found"]:
             print("monsters on the right")
             monster_found = True
