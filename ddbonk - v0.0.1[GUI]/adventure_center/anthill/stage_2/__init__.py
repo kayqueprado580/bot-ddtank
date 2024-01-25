@@ -78,13 +78,13 @@ def adjust_angle(max):
 def take_force(key):
     force = 2.5
     if key == "41":
-        force = 2.0
+        force = 1.9
     elif key == "46":
-        force = 1.6
+        force = 1.5
     elif key == "47":
-        force = 1.7
+        force = 1.4
     elif key == "51":
-        force = 1.3
+        force = 1.2
     else:
         force = 2.2
 

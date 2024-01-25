@@ -39,7 +39,7 @@ def look_ants_left():
     for img_left in IMAGES_ANTS_LEFT:
         ants_left = fn_complement.find(img_left["path"])
         if ants_left["found"]:
-            print("monsters on the left")
+            print("step: monsters on the left")
             monster_found = True
             break
     return monster_found
@@ -51,7 +51,7 @@ def look_ants_right():
     for img_right in IMAGES_ANTS_RIGHT:
         ants = fn_complement.find(img_right["path"])
         if ants["found"]:
-            print("monsters on the right")
+            print("step: monsters on the right")
             monster_found = True
             break
     return monster_found
@@ -98,18 +98,19 @@ def turn_on_ants_stage_1():
                 else:
                     turn_on.walking_left()
             count_turn_left += 1
-        found_right = look_ants_right()
-        if found_right and not found_left:
-            attack_left = False
-            attack_right = True
-            if not fly_used:
-                if count_turn_right > MAX_SIDE_TURN:
-                    print("max turn right - changed side...")
-                    turn_on.walking_left()
-                    count_turn_right = 0
-                else:
-                    turn_on.walking_right()
-            count_turn_right += 1
+        if not found_left:
+            found_right = look_ants_right()
+            if found_right:
+                attack_left = False
+                attack_right = True
+                if not fly_used:
+                    if count_turn_right > MAX_SIDE_TURN:
+                        print("max turn right - changed side...")
+                        turn_on.walking_left()
+                        count_turn_right = 0
+                    else:
+                        turn_on.walking_right()
+                count_turn_right += 1
 
         turn_on.use_skills_trident()
         turn_on.attack(force)

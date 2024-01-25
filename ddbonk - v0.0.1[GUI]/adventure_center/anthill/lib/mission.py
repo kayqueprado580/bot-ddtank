@@ -4,7 +4,7 @@ from lib import fn_complement
 QUEST = ["img/quest.png", "img/quest_1.png"]
 COMPLETED = ["img/ok_mission.png", "img/ok_mission_1.png", "img/ok_mission_2.png"]
 COLLECT_REWARD = "img/collect_reward.png"
-CLOSE = "img/btn_close.png"
+CLOSE = "img/close.png"
 
 
 def found():
