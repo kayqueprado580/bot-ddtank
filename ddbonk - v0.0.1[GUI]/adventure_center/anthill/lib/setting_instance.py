@@ -17,12 +17,13 @@ LEVELS = [
     {"key": "normal", "path": "img/normal.png"},
 ]
 
+enable_start = False
+selected_ant = False
+
 
 def set_up(level):
-    global CENTRAL, PLAY, READY, OK, START, AVAILABLE
+    global CENTRAL, PLAY, READY, OK, START, AVAILABLE, enable_start, selected_ant
     slot_available = True
-    selected_ant = False
-    enable_start = False
     stage = 1
 
     if check_stage_1():
@@ -34,7 +35,7 @@ def set_up(level):
     if check_stage_2():
         stage = 2
         slot_available = False
-        selected_ant = True
+        selected_ant = False
         enable_start = True
 
     central = fn_complement.find(CENTRAL)
@@ -93,10 +94,15 @@ def set_up(level):
     return stage
 
 
+def reset_set_up():
+    global enable_start
+    enable_start = False
+
+
 def check_stage_1():
     global CHECK_STAGE_1
     found = False
-    check = fn_complement.find(CHECK_STAGE_1, use_gray=True)
+    check = fn_complement.find(CHECK_STAGE_1)
     if check["found"]:
         found = True
         print(f"step: check stage 1")
@@ -106,7 +112,7 @@ def check_stage_1():
 def check_stage_2():
     global CHECK_STAGE_2
     found = False
-    check = fn_complement.find(CHECK_STAGE_2, use_gray=True)
+    check = fn_complement.find(CHECK_STAGE_2)
     if check["found"]:
         found = True
         print(f"step: check stage 2")

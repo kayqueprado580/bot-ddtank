@@ -49,6 +49,7 @@ ANGLES_IMAGES_PATH = [
 def click_for_attack(x, y):
     fn_complement.click("my turn - action: click", (x - 40), (y - 80))
 
+
 def use_skills_trident():
     print("step: my turn - action: use skills trident attack")
     time.sleep(0.4)
@@ -119,6 +120,6 @@ def use_fly():
         )
         keyboard.press_and_release("f")
         keyboard.press("space")
-        time.sleep(0.9)
+        time.sleep(1)
         keyboard.release("space")
-        time.sleep(3)
+        time.sleep(4)

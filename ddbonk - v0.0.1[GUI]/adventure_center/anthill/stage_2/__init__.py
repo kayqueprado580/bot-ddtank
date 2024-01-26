@@ -66,7 +66,7 @@ def adjust_angle(max):
     time.sleep(0.2)
 
     if not adjusted_angle:
-        print("adjusting angle...")
+        print("step: my turn - adjusting angle...")
         i = 0
         while i < max:
             keyboard.press_and_release("w")
@@ -118,17 +118,17 @@ def turn_on_boss_stage_2():
             key = angle["key"]
             ang = find_angle(angle["path"])
             if ang["found"]:
-                print(f"angle: '{key}'")
+                print(f"step: my turn - angle: '{key}'")
                 time.sleep(0.1)
                 take_angles(key)
                 force = take_force(key)
                 break
             else:
                 print(
-                    f"attempt counter to get the angle: {count} of max try: {number_attempts}"
+                    f"step: my turn - attempt counter to get the angle: {count} of max try: {number_attempts}"
                 )
                 if count >= int(number_attempts):
-                    print(f"not found angle")
+                    print(f"step: my turn - not found angle")
                     time.sleep(5)
                     count = 0
                     break
