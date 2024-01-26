@@ -58,7 +58,8 @@ def attack_fat_chicken(fat_chicken):
         for angle in turnon.IMAGES_ANGLES:
             print(f"angle: {angle}")
             key = angle["key"]
-            result = turnon.get_angle(angle["path"])
+            result = turnon.get_angle(angle["path"], confidence=0.7)
+            print(f"angle: {result}")
             if result["found"]:
                 print(f"angle: '{key}'")
                 change_angle(key, fat_chicken)

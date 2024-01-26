@@ -81,7 +81,7 @@ def attack():
     time.sleep(0.1)
     keyboard.press("space")
     if FLY_USED:
-        time.sleep(0.3)
+        time.sleep(0.45)
     else:
         time.sleep(0.5)
     keyboard.release("space")
