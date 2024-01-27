@@ -6,18 +6,30 @@ from lib import turn_on
 from lib import setting_room
 from lib import mission
 
+
 END_GAME = "img/end_game.png"
 CARDS = "img/cards.png"
 TOTAL = "img/total.png"
 RESULT_TIME = "img/result_time.png"
 
+MAX_TURN = 10
+MAX_TURN_PASS = 3
 walking_flag = True
 attack_flag = True
 changed_bool = False
 my_turn = False
 my_turn_option_attack = 0
-count_pass = 0
+count_turn = 0
 is_end_game = False
+
+
+def set_up_default_parameters():
+    global walking_flag, attack_flag, changed_bool, my_turn, count_turn
+    walking_flag = True
+    attack_flag = True
+    changed_bool = False
+    my_turn = False
+    count_turn = 0
 
 
 def set_up_my_turn():
@@ -45,7 +57,7 @@ def set_up_my_turn():
 def manager_attack(trident=False):
     if trident:
         turn_on.use_skills_trident()
-    if not trident:
+    else:
         turn_on.use_skills_attack()
     turn_on.attack(0.05)
     time.sleep(7)
@@ -61,36 +73,33 @@ def manager_walking(right=False):
 
 
 def manager_pass(x, y):
-    global count_pass
     turn_on.pass_turn(x, y)
-    count_pass += 1
-    time.sleep(1)
+    time.sleep(2)
 
 
-def manager_end_game():
-    global walking_flag, attack_flag, changed_bool, count_pass, is_end_game
-
-    end_game = fn_complement.find(END_GAME)
-    cards = fn_complement.find(CARDS)
-    result_time = fn_complement.find(RESULT_TIME)
-    total = fn_complement.find(TOTAL)
-    if cards["found"] or end_game["found"] or result_time["found"] or total["found"]:
-        print("step: end game")
-        reset_default_parameters()
-        time.sleep(4)
-        manager_missions()
+def option_pass(turn_x, turn_y):
+    global MAX_TURN_PASS, count_turn, changed_bool, walking_flag
+    max = MAX_TURN_PASS * 2
+    if count_turn < max:
+        manager_pass(turn_x, turn_y)
     else:
-        is_end_game = False
-        
-def reset_default_parameters():
-    global walking_flag, attack_flag, changed_bool, count_pass, is_end_game
-    is_end_game = True
-    walking_flag = True
-    attack_flag = True
-    changed_bool = False
-    count_pass = 0
+        changed_bool = True
+        manager_walking(walking_flag)
+        manager_attack(trident=True)
+
+
+def option_attack(turn_x, turn_y):
+    global MAX_TURN_PASS, count_turn, changed_bool, walking_flag
+    if count_turn <= MAX_TURN_PASS:
+        manager_pass(turn_x, turn_y)
+    else:
+        changed_bool = True
+        manager_walking(walking_flag)
+        manager_attack(trident=True)
+
 
 def manager_missions():
+    print("step: missions")
     mission_accomplished = mission.found()
     if mission_accomplished:
         mission.completed()
@@ -99,48 +108,51 @@ def manager_missions():
         time.sleep(1.5)
         mission.close()
 
-set_up_my_turn()
-while True:
-    if setting_room.start_click:
-        reset_default_parameters()
+
+def manager_end_game():
+    global is_end_game
+    global RESULT_TIME, END_GAME, TOTAL, CARDS
+    result_time = fn_complement.find(RESULT_TIME)
+    end_game = fn_complement.find(END_GAME)
+    total = fn_complement.find(TOTAL)
+    cards = fn_complement.find(CARDS)
+    if cards["found"] or end_game["found"] or result_time["found"] or total["found"]:
+        print("step: end game")
+        is_end_game = True
+        set_up_default_parameters()
+        time.sleep(5)
         manager_missions()
-        setting_room.start_click = False
-        time.sleep(2)
+    else:
+        is_end_game = False
+
+
+set_up_my_turn()
+
+while True:
     if not my_turn:
         manager_end_game()
         if not is_end_game:
+            print("step: set up room")
             setting_room.set_up()
 
     for img_pass in turn_on.IMAGES_PASS:
         turn = fn_complement.find(img_pass)
         if turn["found"]:
             my_turn = True
-            if count_pass > 2:
-                turn_on.click_for_attack(turn["position_x"], turn["position_y"])
             if changed_bool:
                 walking_flag = not walking_flag
-                attack_flag = not attack_flag
                 changed_bool = False
 
             if my_turn_option_attack == 1:
-                if count_pass < 10:
-                    manager_pass(turn["position_x"], turn["position_y"])
-                else:
-                    changed_bool = True
-                    manager_walking(walking_flag)
-                    manager_attack(True)
+                option_pass(turn["position_x"], turn["position_y"])
             else:
-                if count_pass < 3:
-                    manager_pass(turn["position_x"], turn["position_y"])
-                elif count_pass > 3 and count_pass < 5:
-                    changed_bool = True
-                    attack_flag = False
-                    manager_walking(walking_flag)
-                    manager_attack(True)
-                else:
-                    changed_bool = True
-                    manager_walking(walking_flag)
-                    manager_attack(True)
+                option_attack(turn["position_x"], turn["position_y"])
+
+            if count_turn <= MAX_TURN:
+                count_turn += 1
+            else:
+                count_turn = 0
+            print(f"step: my turn - count turn: {count_turn} / {MAX_TURN}")
         else:
             my_turn = False
 

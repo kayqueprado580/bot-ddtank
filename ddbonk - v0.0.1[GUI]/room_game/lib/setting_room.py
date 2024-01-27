@@ -1,5 +1,4 @@
 import time
-
 from lib import fn_complement
 
 ROOM = "img/room.png"
@@ -11,11 +10,9 @@ START = "img/btn_init.png"
 AVAILABLE = "img/available.png"
 BATTLE_FREE = "img/free_combat.png"
 
-start_click = False
-
 
 def set_up(GVG=False):
-    global ROOM, PLAY, WAIT, READY, OK, START, AVAILABLE, start_click
+    global ROOM, PLAY, WAIT, READY, OK, START, AVAILABLE
     slot_available = True
     click_battle_free = False
 
@@ -55,7 +52,6 @@ def set_up(GVG=False):
         start = fn_complement.find(START)
         if start["found"]:
             fn_complement.click("start", start["position_x"], start["position_y"])
-            start_click = True
             time.sleep(5)
 
         wait = fn_complement.find(WAIT)
