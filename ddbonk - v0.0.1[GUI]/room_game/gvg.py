@@ -132,7 +132,6 @@ while True:
     if not my_turn:
         manager_end_game()
         if not is_end_game:
-            # print("step: set up room")
             setting_room.set_up(GVG=True)
 
     for img_pass in turn_on.IMAGES_PASS:

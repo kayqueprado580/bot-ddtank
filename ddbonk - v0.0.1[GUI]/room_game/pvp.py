@@ -132,13 +132,13 @@ while True:
     if not my_turn:
         manager_end_game()
         if not is_end_game:
-            print("step: set up room")
             setting_room.set_up()
 
     for img_pass in turn_on.IMAGES_PASS:
         turn = fn_complement.find(img_pass)
         if turn["found"]:
             my_turn = True
+            time.sleep(0.5)
             if changed_bool:
                 walking_flag = not walking_flag
                 changed_bool = False
@@ -146,6 +146,8 @@ while True:
             if my_turn_option_attack == 1:
                 option_pass(turn["position_x"], turn["position_y"])
             else:
+                turn_on.click_for_attack(turn["position_x"], turn["position_y"])
+                time.sleep(0.5)
                 option_attack(turn["position_x"], turn["position_y"])
 
             if count_turn <= MAX_TURN:
