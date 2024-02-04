@@ -19,6 +19,8 @@ ANGLES_IMAGES_PATH = [
     {"key": "6", "path": "img/ang/ang_6.png"},
     {"key": "10", "path": "img/ang/ang_10.png"},
     {"key": "11", "path": "img/ang/ang_11.png"},
+    {"key": "11", "path": "img/ang/ang_11_1.png"},
+    {"key": "11", "path": "img/ang/ang_11_2.png"},
     {"key": "12", "path": "img/ang/ang_12.png"},
     {"key": "13", "path": "img/ang/ang_13.png"},
     {"key": "14", "path": "img/ang/ang_14.png"},

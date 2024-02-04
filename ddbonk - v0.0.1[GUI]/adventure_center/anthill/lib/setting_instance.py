@@ -38,6 +38,10 @@ def set_up(level):
         selected_ant = False
         enable_start = True
 
+    ready = fn_complement.find(READY)
+    if ready["found"]:
+        fn_complement.click("ready", ready["position_x"], ready["position_y"])
+
     central = fn_complement.find(CENTRAL)
     if central["found"]:
         fn_complement.click("central", central["position_x"], central["position_y"])

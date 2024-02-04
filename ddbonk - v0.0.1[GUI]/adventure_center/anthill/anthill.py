@@ -94,8 +94,8 @@ while True:
             setting_instance.selected_ant = False
             my_turn = True
             print(f"stage: {stage}")
-            if count < 1:
-                turn_on.click_for_attack(turn["position_x"], turn["position_y"])
+            # if count < 1:
+            turn_on.click_for_attack(turn["position_x"], turn["position_y"])
             if stage == 1:
                 turn_on_ants_stage_1()
             else:
